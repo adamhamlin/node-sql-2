@@ -6,5 +6,6 @@
     "Node"     : true,
     "suite"    : true,
     "test"     : true
-  }
+  },
+  "esversion": 11
 }

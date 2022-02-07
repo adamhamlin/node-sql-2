@@ -57,6 +57,21 @@ Harness.test({
   params: ['hello']
 });
 
+// Test sqlite LIKE clause escaping.
+Harness.test({
+  query: customer.select(customer.name).where(customer.name.like(customer.id)),
+  sqlite: {
+    text  : `SELECT "customer"."name" FROM "customer" WHERE ("customer"."name" LIKE "customer"."id" ESCAPE '\\')`,
+    string: `SELECT "customer"."name" FROM "customer" WHERE ("customer"."name" LIKE "customer"."id" ESCAPE '\\')`,
+    config: {
+      sqlite: {
+        likeClauseEscapeCharacter: '\\'
+      }
+    }
+  },
+  params: []
+});
+
 // Test implementing simple formulas.
 // Acceleration formula. (a * t^2 / 2) + (v * t) = d
 Harness.test({
